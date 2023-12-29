@@ -1,0 +1,226 @@
+
+<!--</html>-->
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <title>Electro - HTML Ecommerce Template</title>
+
+    <!-- Google font -->
+    <!-- Bootstrap -->
+    <link type="text/css" rel="stylesheet" th:href="@{/khachhang/css/bootstrap.min.css}"/>
+
+    <!-- Slick -->
+    <link type="text/css" rel="stylesheet" th:href="@{/khachhang/css/slick.css}"/>
+    <link type="text/css" rel="stylesheet"th:href="@{/khachhang/css/slick-theme.css}"/>
+
+    <!-- nouislider -->
+    <link type="text/css" rel="stylesheet" th:href="@{/khachhang/css/nouislider.min.css}"/>
+
+    <!-- Font Awesome Icon -->
+    <link rel="stylesheet" th:href="@{/khachhang/css/font-awesome.min.css}">
+
+    <!-- Custom stlylesheet -->
+    <link type="text/css" rel="stylesheet" th:href="@{/khachhang/css/style.css}"/>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+
+    <![endif]-->
+    <style>
+        .apply-filter-button .btn{
+            background-color: #D10024;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            cursor: pointer;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+<!-- SECTION -->
+<div class="section" th:fragment="store">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <!-- ASIDE -->
+
+            <div id="aside" class="col-md-3">
+                <!-- aside Widget -->
+                <form th:action="@{/home/update}" method="get"  id="updateForm">
+                    <div class="aside">
+                        <h3 class="aside-title">Categories</h3>
+                        <div class="checkbox-filter" th:each="temp, key : ${danhmucs}">
+                            <div class="input-checkbox" >
+                                <input    type="checkbox"   th:id="'category-' + ${key.index + 1}"  th:name="danhmuc" th:value="${temp.getId()}" th:checked="${selectedDanhMuc != null and selectedDanhMuc.contains(temp.getId())}">
+                                <label th:for="'category-' + ${key.index + 1}">
+                                    <span></span>
+                                    <div th:text="${temp.getName()}"></div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /aside Widget -->
+
+                    <!-- aside Widget -->
+
+                    <div class="aside">
+                        <h3 class="aside-title">Price</h3>
+                        <div class="price-filter">
+                            <div id="price-slider"></div>
+                            <div class="input-number price-min">
+                                <input id="price-min" type="number" placeholder="Min VNĐ" th:name="priceMin" th:value="${priceMin}">
+                                <span class="qty-up">+</span>
+                                <span class="qty-down">-</span>
+                            </div>
+                            <span>-</span>
+                            <div class="input-number price-max">
+                                <input id="price-max" type="number" placeholder="Max VNĐ" th:name="priceMax" th:value="${priceMax}">
+                                <span class="qty-up">+</span>
+                                <span class="qty-down">-</span>
+                            </div>
+                            <div class="apply-filter-button">
+                                <button type="submit" class="btn btn-primary btn-block">Áp dụng</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- /aside Widget -->
+
+                    <!-- aside Widget -->
+                    <div class="aside">
+                        <h3 class="aside-title">Brand</h3>
+                        <div class="checkbox-filter" th:each="temp, key : ${nhacungcaps}">
+                            <div class="input-checkbox" >
+                                <input type="checkbox" th:id="'brand-' + ${key.index + 1}" th:name="nhacungcap" th:value="${temp.getId()}" th:checked="${selectedNhaCungCap != null and selectedNhaCungCap.contains(temp.getId())}" >
+                                <label th:for="'brand-' + ${key.index + 1}">
+                                    <span></span>
+                                    <div th:text="${temp.getName()}"></div>
+
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /aside Widget -->
+                </form>
+            </div>
+
+            <!-- /ASIDE -->
+
+            <!-- STORE -->
+            <div id="store" class="col-md-9">
+
+                <!-- store products -->
+                <div class="row">
+                    <!-- product -->
+                    <div class="col-md-4 col-xs-6" th:each="temp : ${laptopstore}">
+                        <div class="product">
+                            <a th:href="@{/detail/laptopdetail(laptopid=${temp.id})}">
+                            <div class="product-img">
+                                <img th:src="@{'/getimage/' + ${temp.image}}" width="212.49" height="212.49"   alt="">
+                                <div class="product-label">
+                                    <span class="sale">-30%</span>
+                                    <span class="new">NEW</span>
+                                </div>
+                            </div>
+                            </a>
+                            <div class="product-body">
+                                <p class="product-category">Category</p>
+                                <h3 class="product-name"><a href="#" th:text="${temp.name}"></a></h3>
+                                <h4 class="product-price" th:text="${temp.getFormattedPrice()}"></h4>
+                                <div class="product-rating">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                </div>
+                                <div class="product-btns">
+                                    <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
+                                    <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
+                                    <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
+                                </div>
+                            </div>
+                            <div class="add-to-cart">
+                                <form th:action="@{/carts/add}" method="get">
+                                    <input type="hidden" th:name="laptopId" th:value="${temp.id}" />
+                                    <button onclick="alert('Đã thêm vào giỏ hàng!!')" type="submit"  class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i>
+                                        add to cart
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /product -->
+                </div>
+                <!-- /store products -->
+
+                <!-- store bottom filter -->
+                <div class="store-filter clearfix">
+                    <ul class="store-pagination">
+
+                        <li th:if="${currentPage > 1}">
+                            <a th:href="@{${selectedDanhMuc!=null && selectedDanhMuc!='' ? '?selectedDanhMuc='+selectedDanhMuc+'&' : '?'} +
+                  ${selectedNhaCungCap!=null && selectedNhaCungCap!='' ? 'selectedNhaCungCap='+selectedNhaCungCap+'&' : ''} +
+                  ${priceMin!=null ? 'priceMin='+priceMin+'&' : ''} +
+                  ${priceMax!=null ? 'priceMax='+priceMax+'&' : ''} +'page='+${currentPage - 1}}"><i class="fa fa-angle-left"></i></a>
+                        </li>
+
+
+                        <li th:each="i : ${#numbers.sequence(1,totalPage)}" th:classappend="${currentPage==i ?'active':''}">
+                            <a th:href="@{${selectedDanhMuc!=null && selectedDanhMuc!='' ? '?selectedDanhMuc='+selectedDanhMuc+'&' : '?'} +
+                  ${selectedNhaCungCap!=null && selectedNhaCungCap!='' ? 'selectedNhaCungCap='+selectedNhaCungCap+'&' : ''} +
+                  ${priceMin!=null ? 'priceMin='+priceMin+'&' : ''} +
+                  ${priceMax!=null ? 'priceMax='+priceMax+'&' : ''} +
+                  'page='+${i}}" th:text="${i}"></a>
+                        </li>
+
+
+                        <li th:if="${currentPage<totalPage}">
+                            <a th:href="@{${selectedDanhMuc!=null && selectedDanhMuc!='' ? '?selectedDanhMuc='+selectedDanhMuc+'&' : '?'} +
+                  ${selectedNhaCungCap!=null && selectedNhaCungCap!='' ? 'selectedNhaCungCap='+selectedNhaCungCap+'&' : ''} +
+                  ${priceMin!=null ? 'priceMin='+priceMin+'&' : ''} +
+                  ${priceMax!=null ? 'priceMax='+priceMax+'&' : ''} +'page='+${currentPage + 1}}"><i class="fa fa-angle-right"></i></a>
+                        </li>
+
+                    </ul>
+                </div>
+                <!-- /store bottom filter -->
+            </div>
+            <!-- /STORE -->
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /SECTION -->
+
+
+
+<!-- jQuery Plugins -->
+<script th:src="@{/khachhang/js/jquery.min.js}"></script>
+<script th:src="@{/khachhang/js/bootstrap.min.js}"></script>
+<script th:src="@{/khachhang/js/slick.min.js}"></script>
+<script th:src="@{/khachhang/js/nouislider.min.js}"></script>
+<script th:src="@{/khachhang/js/jquery.zoom.min.js}"></script>
+<script th:src="@{/khachhang/js/main.js}"></script>
+<script>
+    $(document).ready(function () {
+        $('input[type="checkbox"]').on('change', function () {
+            $('#updateForm').submit();
+        });
+    });
+
+</script>
+</body>
+
+</html>

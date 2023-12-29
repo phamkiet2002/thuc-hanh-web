@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link th:href="@{/bootstrap5/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <h3>Them Danh muc</h3>
+    <hr>
+    <form action="#" th:action="@{/danhmuc/save}" th:object="${danhmuc}" method="post" enctype="multipart/form-data">
+
+        <input type="hidden" th:field="*{id}">
+        Tên Danh muc<input type="text" th:field="*{name}" placeholder="Tên Nha cung cap" class="form-control mb-4 w-25">
+        <button type="submit" class="btn btn-info col-2">Save</button>
+    </form>
+    <hr>
+</div>
+</body>
+</html>

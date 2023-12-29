@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link th:href="@{/bootstrap5/css/bootstrap.min.css}" rel="stylesheet">
+    <title>Customer Information</title>
+</head>
+<body>
+
+<div class="container">
+
+    <div th:fragment="capnhatthongtin" style="padding-bottom: 10px;">
+        <h2>Customer Information</h2>
+
+        <form action="#" th:action="@{/thongtin/save}" th:object="${userdetail}" method="post"
+              enctype="multipart/form-data">
+
+            <input type="hidden" th:field="*{id}">
+
+            <div class="form-group">
+                <label>Tên khách hàng:</label>
+                <input type="text" th:field="*{name}" class="form-control" placeholder="Tên khách hàng">
+            </div>
+
+            <div class="form-group">
+                <label>Địa chỉ:</label>
+                <input type="text" th:field="*{diaChi}" class="form-control" placeholder="Địa chỉ">
+            </div>
+
+            <div class="form-group">
+                <label>Email:</label>
+                <input type="text" th:field="*{email}" class="form-control" placeholder="Email">
+            </div>
+
+            <div class="form-group">
+                <label>UserName:</label>
+                <input type="text" th:field="*{username}" class="form-control" placeholder="UserName">
+            </div>
+
+            <div class="form-group">
+                <label>Password:</label>
+                <input type="password" th:field="*{password}" class="form-control" placeholder="Password">
+            </div>
+
+            <div class="form-group">
+                <label>Số điện thoại:</label>
+                <input type="text" th:field="*{sdt}" class="form-control" placeholder="Số điện thoại">
+            </div>
+            <div th:if="${principal != null}">
+                <span th:text="${principal.username}">Tên người dùng</span>
+            </div>
+
+
+            <button type="submit" class="btn btn-info">Save</button>
+            <button th:href="@{/thongtin/user}" class="btn btn-danger">Cancel</button>
+        </form>
+    </div>
+</div>
+
+<!--        <div th:if="${principal != null}">-->
+<!--            <span th:text="${principal.username}">Tên người dùng</span>-->
+<!--        </div>-->
+
+
+</body>
+</html>

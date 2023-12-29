@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<!--    <meta charset="UTF-8">-->
+    <title>Title</title>
+
+    <link th:href="@{/bootstrap5/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <h1>Danh sach Laptop</h1>
+
+    <div th:fragment="dslaptop">
+
+        <form th:action="@{/admin/listlaptop}" method="get" class="pb-3 d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+            <div class="input-group">
+                <input name="key" th:value="${key}" type="text" class="form-control" placeholder="Search for..." aria-label="Search"
+                       aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="submit">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+
+        <a th:href="@{/laptops/showFormForAdd}" class="btn btn-primary btn-sm mb-3">Thêm Laptop</a>
+        <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+            <tr>
+                <th>name</th>
+                <th>gia</th>
+                <th>so luong</th>
+                <th>loai</th>
+                <th>hinh</th>
+                <th>ncc</th>
+                <th>danh muc</th>
+                <th>mo ta</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="temp : ${laptops}">
+                <td th:text="${temp.name}"></td>
+                <td th:text="${temp.getFormattedPrice()}"></td>
+                <td th:text="${temp.quantity}"></td>
+                <td th:text="${temp.type}"></td>
+
+                <td  ><img th:src="@{'/getimage/' + ${temp.image}}"  style="width: 100px; height: 70px; margin: auto; display: block;"></td>
+
+                <td th:text="${temp.ncc.getName()}"></td>
+                <td th:text="${temp.danhMuc.getName()}"></td>
+                <td th:text="${temp.description}"></td>
+
+                <td>
+                    <a th:href="@{/laptops/showFormForUpdate(laptopid=${temp.id})}"
+                       class="btn btn-info btn-sm">Update</a>
+                    <a class="btn btn-danger btn-sm" th:href="@{/laptops/delete(laptopid=${temp.id})}"
+                       onclick="if(!(confirm('ban co muon xoa khong'))) return false;">Delete</a>
+                </td>
+
+            </tr>
+            </tbody>
+        </table>
+        <div class="container">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link" href="#">
+                            <i class="fa fa-angle-left"></i>
+                        </a>
+                    </li>
+
+                    <li th:each="i:${#numbers.sequence(1, totalpage)}"
+                        th:classappend="${currentPage==i ?'active':''}"
+                        class="page-item">
+                        <a th:href="@{${key!=null && key!=''?'?key='+key+'&':''}+'?page='+${i}}"
+                           th:text="${i}" class="page-link"></a>
+                    </li>
+
+                    <li class="page-item">
+                        <a class="page-link" href="#">
+                            <i class="fa fa-angle-right"></i>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+</body>
+</html>

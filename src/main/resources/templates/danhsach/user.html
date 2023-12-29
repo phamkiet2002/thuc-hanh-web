@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="stylesheet" th:href="@{/bootstrap5/css/bootstrap.min.css}">
+</head>
+<body>
+<div class="container">
+    <h1>Danh sach Danh muc</h1>
+    <div th:fragment="dsuser">
+        <form th:action="@{/admin/listUser}" method="get"
+              class="pb-3 d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+            <div class="input-group">
+                <input name="keyUser" th:value="${keyUser}" type="text" class="form-control" placeholder="Search for..."
+                       aria-label="Search"
+                       aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="submit">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+
+        <a th:href="@{/khachhang/ShowFormThemSuaKhachHang}" class="btn btn-primary btn-sm mb-3">Thêm Khách hàng</a>
+        <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+            <tr>
+                <th>ten</th>
+                <th>Dia chi</th>
+                <th>Email</th>
+                <th>username</th>
+                <th>password</th>
+                <th>sdt</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="temp : ${dsuser}">
+                <td th:text="${temp.name}"></td>
+                <td th:text="${temp.diaChi}"></td>
+                <td th:text="${temp.email}"></td>
+                <td th:text="${temp.username}"></td>
+                <td th:text="${temp.password}"></td>
+                <td th:text="${temp.sdt}"></td>
+
+                <td>
+
+                    <a th:href="@{/khachhang/showFormUpdateUser(userid=${temp.id})}"
+                       class="btn btn-info btn-sm">Update</a>
+
+                    <a class="btn btn-danger btn-sm"
+                       th:href="@{/khachhang/delete(userid=${temp.id})}"
+                       onclick="if(!(confirm('ban co muon xoa khong'))) return false;">Delete</a>
+                </td>
+
+            </tr>
+            </tbody>
+        </table>
+        <div class="container">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link" href="#">
+                            <i class="fa fa-angle-left"></i>
+                        </a>
+                    </li>
+
+                    <li th:each="i:${#numbers.sequence(1, totalpageUser)}"
+                        th:classappend="${currentPageUser==i ?'active':''}"
+                        class="page-item">
+                        <a th:href="@{${keyUser!=null && keyUser!=''?'?key='+keyUser+'&':''}+'?page='+${i}}"
+                           th:text="${i}" class="page-link"></a>
+                    </li>
+
+                    <li class="page-item">
+                        <a class="page-link" href="#">
+                            <i class="fa fa-angle-right"></i>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

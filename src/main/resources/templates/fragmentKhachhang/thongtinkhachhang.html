@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="stylesheet" th:href="@{/bootstrap5/css/bootstrap.min.css}">
+</head>
+<body>
+<div class="container">
+    <div th:fragment="thongtin" style="text-align: center;">
+        <h1>Thông tin cá nhân</h1>
+
+        <div class="row" th:each="temp : ${user}" style="margin: 0 auto; max-width: 800px;">
+            <div class="col-md-6" style="text-align: left;">
+                <h2>Thông tin cơ bản</h2>
+                <ul>
+                    <li>Họ và tên: <span class="text-info" th:text="${temp.name}"></span></li>
+                    <li>Email: <span class="text-info" th:text="${temp.email}"></span></li>
+                    <li>Số điện thoại: <span class="text-info" th:text="${temp.sdt}"></span></li>
+                    <li>Username: <span class="text-info" th:text="${temp.username}"></span></li>
+                </ul>
+            </div>
+            <div class="col-md-6" style="text-align: right;">
+                <h2>Thông tin chi tiết</h2>
+                <ul>
+                    <li>Địa chỉ: <span class="text-info" th:text="${temp.diaChi}"></span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-center" style="padding-bottom: 10px">
+            <a th:href="@{/thongtin/ShowFormSuaThongtin}" class="btn btn-primary">Chỉnh sửa</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

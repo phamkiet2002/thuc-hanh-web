@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="stylesheet" th:href="@{/bootstrap5/css/bootstrap.min.css}">
+</head>
+<body>
+<div class="container">
+    <h1>Danh sach Nhà Cung Cấp</h1>
+    <!--    <a th:href="@{/employee/ShowFormThemSua}" class="btn btn-primary mb-2">Them Nhan Vien</a>-->
+
+    <div th:fragment="dsnhacungcap">
+        <a th:href="@{/nhacungcap/ShowFormThemSuaNcc}" class="btn btn-primary btn-sm mb-3">Thêm Nha cung cap</a>
+        <table  class="table table-bordered table-striped">
+            <thead class="table-dark">
+            <tr>
+                <th>name</th>
+                <th>email</th>
+                <th>sdt</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="temp : ${nhacungcap}">
+                <td th:text="${temp.name}"></td>
+                <td th:text="${temp.email}"></td>
+                <td th:text="${temp.sdt}"></td>
+                <td>
+
+                    <a th:href="@{/nhacungcap/ShowFormUpDateNcc(nhacungcapid=${temp.id})}"
+                            class="btn btn-info btn-sm">Update</a>
+
+
+
+<!--                    <a class="btn btn-danger btn-sm" th:href="@{/nhacungcap/delete(nhacuncapid=${temp.id}, error = 'true') }"-->
+<!--                       onclick= "alert('khong the xoa da ton tai san pham')" >Delete</a>-->
+
+
+                    <a class="btn btn-danger btn-sm" th:href="@{/nhacungcap/delete(nhacuncapid=${temp.id}, error=${error})}"
+                       onclick="if(!(confirm('ban co muon xoa khong'))) return false;">Delete</a>
+
+
+                    <a class="btn btn-danger btn-sm"
+                       th:href="@{/nhacungcap/delete(nhacuncapid=${temp.id}, error=${error})}"
+                       onclick="if ('${error}') { alert('Không thể xóa.'); } else { if (!(confirm('Bạn có muốn xóa không?'))) return false; }"
+                    >Delete</a>
+
+
+
+                </td>
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link th:href="@{/bootstrap5/css/bootstrap.min.css}" rel="stylesheet">
+    <title>Employees Directory</title>
+</head>
+<body>
+<div class="container">
+    <h3>Form Laptop</h3>
+    <hr>
+    <form action="#" th:action="${action}" th:object="${laptop}" method="post" enctype="multipart/form-data" class="mx-auto mt-4 w-50">
+
+        <input type="hidden" th:field="*{id}">
+
+        <div class="form-group">
+            <label >Tên Laptop</label>
+            <input type="text" th:field="*{name}" placeholder="Tên Laptop" class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label >Giá</label>
+            <input type="text" th:field="*{price}" placeholder="Giá" class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label >Số Lượng</label>
+            <input type="number" th:field="*{quantity}" placeholder="Số Lượng" class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label >Loại Sản Phẩm</label>
+            <input type="text" th:field="*{type}" placeholder="Loại sản phẩm" class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label >Hình</label>
+            <input type="file" th:field="*{image}" class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label >Danh mục</label>
+            <select th:field="*{danhMuc.id}" class="form-control">
+                <option th:each="tempdanhmuc : ${danhmuc}" th:value="${tempdanhmuc.id}" th:text="${tempdanhmuc.name}"></option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label >Nhà Cung Cấp</label>
+            <select th:field="*{ncc.id}" class="form-control">
+                <option th:each="tempncc : ${nhacungcap}" th:value="${tempncc.id}" th:text="${tempncc.name}"></option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label >Mô Tả</label>
+            <input type="text" th:field="*{description}" placeholder="description" class="form-control">
+        </div>
+
+        <button type="submit" class="btn btn-info">Save</button>
+    </form>
+
+    <hr>
+</div>
+</body>
+</html>

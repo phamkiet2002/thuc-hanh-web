@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="stylesheet" th:href="@{/bootstrap5/css/bootstrap.min.css}">
+</head>
+<body>
+<div class="container">
+    <h1>Danh sach Danh muc</h1>
+    <div th:fragment="dsdanhmuc">
+
+        <form th:action="@{/admin/listdanhmuc}" method="get">
+            tim kiem <input name="key" th:value="${key}">
+            <button type="submit" value="submit"></button>
+        </form>
+
+        <a th:href="@{/danhmuc/ShowFormThemSuaDanhMuc}" class="btn btn-primary btn-sm mb-3">Thêm Danh muc</a>
+        <table  class="table table-bordered table-striped">
+            <thead class="table-dark">
+            <tr>
+                <th>name</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="temp : ${dsdanhmuc}">
+                <td th:text="${temp.name}"></td>
+                <td>
+
+                    <a th:href="@{/danhmuc/ShowFormUpdateDanhMuc(danhmucid=${temp.id})}"
+                       class="btn btn-info btn-sm">Update</a>
+
+                    <a class="btn btn-danger btn-sm"
+                       th:href="@{/danhmuc/delete(danhmucid=${temp.id})}"
+                       onclick="if(!(confirm('ban co muon xoa khong'))) return false;">Delete</a>
+                </td>
+
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+</body>
+</html>

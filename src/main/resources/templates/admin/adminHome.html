@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>SB Admin - Dashboard</title>
+
+    <!--Custom fonts for this template-->
+    <link th:href="@{/admin/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
+    <!-- Custom styles for this template-->
+    <link th:href="@{/admin/css/sb-admin.css}" rel="stylesheet">
+    <link th:href="@{/bootstrap5/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+
+<body id="page-top">
+
+<nav class="navbar navbar-expand navbar-dark bg-dark static-top">
+
+    <a class="navbar-brand mr-1" href="">Admin Home</a>
+
+    <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Navbar Search -->
+    <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+        <div class="input-group">
+            <input type="hidden" class="form-control" placeholder="Search for..." aria-label="Search"
+                   aria-describedby="basic-addon2">
+            <!--            <div class="input-group-append">-->
+            <!--                <button class="btn btn-primary" type="button">-->
+            <!--                    <i class="fas fa-search"></i>-->
+            <!--                </button>-->
+            <!--            </div>-->
+        </div>
+    </form>
+
+    <!-- Navbar -->
+    <ul class="navbar-nav ml-auto ml-md-0 ">
+        <li class="nav-item ">
+            <a class="nav-link " th:href="@{/home/list}">
+                <i class="fas fa-bell fa-fw"></i>
+                chuong
+            </a>
+        </li>
+        <li class="nav-item ">
+            <a class="nav-link " href="#">
+                <i class="fas fa-envelope fa-fw"></i>
+                thu
+            </a>
+        </li>
+        <li class="nav-item ">
+            <a class="nav-link " href="">
+                <i class="fas fa-user-circle fa-fw"></i>
+                <span sec:authentication="principal.username"></span>
+            </a>
+        </li>
+    </ul>
+
+</nav>
+
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    <ul class="sidebar navbar-nav">
+        <li class="nav-item active">
+            <a class="nav-link" th:href="@{/admin/home}">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+        <li class="nav-item ">
+            <a class="nav-link " th:href="@{/admin/listlaptop}">
+                <i class="fas fa-fw fa-folder"></i>
+                <span>Quản Lý Laptop</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/admin/listncc}">
+                <i class="fas fa-fw fa-chart-area"></i>
+                <span>Nhà Cung Cấp</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/admin/listdanhmuc}">
+                <i class="fas fa-fw fa-table"></i>
+                <span>Quản Lý Danh Mục</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/admin/listUser}">
+                <i class="fas fa-fw fa-table"></i>
+                <span>Khach hang</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/admin/listHoaDon}">
+                <i class="fas fa-fw fa-table"></i>
+                <span>Hoa don</span></a>
+        </li>
+        <li class="nav-item">
+            <form th:action="@{/logout}" method="post">
+                <input type="submit" value="Logout">
+            </form>
+        </li>
+    </ul>
+
+    <div id="content-wrapper">
+
+        <div class="container">
+            <div class="card-body">
+                <!-- Icon Cards-->
+                <div class="row" th:if="!${laptops}">
+                    <div class="col-xl-3 col-sm-6 mb-3">
+                        <div class="card text-white bg-primary o-hidden h-100">
+                            <div class="card-body">
+                                <div class="card-body-icon">
+                                    <i class="fas fa-fw fa-comments"></i>
+                                </div>
+                                <div class="mr-5">26 New Messages!</div>
+                            </div>
+                            <a class="card-footer text-white clearfix small z-1" href="#">
+                                <span class="float-left">View Details</span>
+                                <span class="float-right">
+                  <i class="fas fa-angle-right"></i>
+                </span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-sm-6 mb-3">
+                        <div class="card text-white bg-warning o-hidden h-100">
+                            <div class="card-body">
+                                <div class="card-body-icon">
+                                    <i class="fas fa-fw fa-list"></i>
+                                </div>
+                                <div class="mr-5">11 New Tasks!</div>
+                            </div>
+                            <a class="card-footer text-white clearfix small z-1" href="#">
+                                <span class="float-left">View Details</span>
+                                <span class="float-right">
+                  <i class="fas fa-angle-right"></i>
+                </span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-sm-6 mb-3">
+                        <div class="card text-white bg-success o-hidden h-100">
+                            <div class="card-body">
+                                <div class="card-body-icon">
+                                    <i class="fas fa-fw fa-shopping-cart"></i>
+                                </div>
+                                <div class="mr-5">123 New Orders!</div>
+                            </div>
+                            <a class="card-footer text-white clearfix small z-1" href="#">
+                                <span class="float-left">View Details</span>
+                                <span class="float-right">
+                  <i class="fas fa-angle-right"></i>
+                </span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-sm-6 mb-3">
+                        <div class="card text-white bg-danger o-hidden h-100">
+                            <div class="card-body">
+                                <div class="card-body-icon">
+                                    <i class="fas fa-fw fa-life-ring"></i>
+                                </div>
+                                <div class="mr-5">13 New Tickets!</div>
+                            </div>
+                            <a class="card-footer text-white clearfix small z-1" href="#">
+                                <span class="float-left">View Details</span>
+                                <span class="float-right">
+                  <i class="fas fa-angle-right"></i>
+                </span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div th:if="${laptops}">
+                    <div th:insert="danhsach/laptop :: dslaptop"></div>
+                </div>
+
+                <div th:if="${nhacungcap}">
+                    <div th:insert="danhsach/nhacungcap :: dsnhacungcap"></div>
+                </div>
+
+                <div th:if="${dsdanhmuc}">
+                    <div th:insert="danhsach/danhmuc :: dsdanhmuc"></div>
+                </div>
+
+                <div th:if="${dsuser}">
+                    <div th:insert="danhsach/user :: dsuser"></div>
+                </div>
+                <div th:if="${hoadon}">
+                    <div th:insert="danhsach/hoadon :: dshoadon"></div>
+                </div>
+                <div th:if="${chiTietHoaDons}">
+                    <div th:insert="danhsach/chitiethoadon :: dschitiethoadon"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- /.container-fluid -->
+
+    <!-- Sticky Footer -->
+    <footer class="sticky-footer">
+        <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+                <span>Copyright © Your Website 2019</span>
+            </div>
+        </div>
+    </footer>
+
+</div>
+<!-- /.content-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+
+<!-- Bootstrap core JavaScript-->
+<script th:src="@{/admin/vendor/jquery/jquery.min.js}"></script>
+<script th:src="@{/admin/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+<!-- Custom scripts for all pages-->
+<script th:src="@{/admin/js/sb-admin.min.js}"></script>
+
+</body>
+
+</html>

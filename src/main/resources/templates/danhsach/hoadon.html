@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/bootstrap5/css/bootstrap.min.css}">
+</head>
+<body>
+<div class="container">
+    <h1>Danh sách hóa đơn</h1>
+    <!--    <a th:href="@{/employee/ShowFormThemSua}" class="btn btn-primary mb-2">Them Nhan Vien</a>-->
+
+    <div th:fragment="dshoadon">
+        <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+            <tr>
+                <th>Khách hàng</th>
+                <th>ngày đặt</th>
+                <th>sdt</th>
+                <th>status</th>
+                <th>địa chỉ</th>
+                <th>Người nhận</th>
+                <th>action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="temp : ${hoadon}">
+                <form th:action="@{/admin/updateHoaDon}" method="post">
+                    <input type="hidden" th:name="id" th:value="${temp.id}">
+                    <td th:text="${temp.user.name}"></td>
+                    <td th:text="${temp.ngayDat}"></td>
+                    <td th:text="${temp.sdt}"></td>
+                    <td>
+                        <select class="form-control" th:name="status" th:value="${temp.status}" onchange="this.form.submit()">
+                            <option th:each="status : ${listStatus}"  th:text="${status.name()}" th:selected="${status == temp.status}" ></option>
+                        </select>
+                    </td>
+                    <td th:text="${temp.diachi}"></td>
+                    <td th:text="${temp.customName}"></td>
+                    <td>
+                        <a th:href="@{/admin/listChiTietHoaDon(hoaDonId=${temp.id})}" class="btn btn-info btn-sm">Chi
+                            tiết</a>
+                    </td>
+                </form>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+</body>
+
+</html>

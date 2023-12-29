@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/bootstrap5/css/bootstrap.min.css}">
+    <style>
+        .container {
+            margin-top: 20px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        table {
+            margin-top: 20px;
+        }
+
+        .total-section {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .back-btn {
+            margin-top: 10px;
+        }
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Chi tiết hóa đơn</h1>
+
+    <div th:fragment="dschitiethoadon">
+        <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+            <tr>
+                <th class="laptop-col">Laptop</th>
+                <th class="image-col">Image</th>
+                <th>Price</th>
+                <th>Quantity</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr th:each="temp : ${chiTietHoaDons}">
+                <td class="laptop-col" th:text="${temp.id.lapTop.name}"></td>
+                <td class="image-col"><img th:src="@{'/getimage/' + ${temp.id.lapTop.image}}" style="width: 100px; height: 70px; margin: auto; display: block;"></td>
+                <td th:text="${temp.getFormattedPrice()}"></td>
+                <td th:text="${temp.quantity}"></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <!-- Hiển thị tổng cộng -->
+        <div class="total-section">
+            <p class="fw-bold">Tổng cộng: <span th:text="${total}"></span></p>
+        </div>
+
+        <!-- Nút Back -->
+        <a th:href="@{/admin/listHoaDon}" class="btn btn-secondary back-btn">Back</a>
+    </div>
+
+</div>
+
+</body>
+</html>

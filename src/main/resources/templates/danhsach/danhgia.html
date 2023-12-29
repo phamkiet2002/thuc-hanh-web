@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="stylesheet" th:href="@{/bootstrap5/css/bootstrap.min.css}">
+</head>
+<body>
+<div class="container">
+    <h1>Danh Sách Đánh Giá</h1>
+    <div th:fragment="dsDanhGia">
+        <a th:href="@{/danhmuc/ShowFormThemSuaDanhMuc}" class="btn btn-primary btn-sm mb-3">Thêm Đánh Giá</a>
+        <table  class="table table-bordered table-striped">
+            <thead class="table-dark">
+            <tr>
+                <th>laptop</th>
+                <th>Ngay danh gia</th>
+                <th>Noi dung</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="temp : ${dsdanhmuc}">
+                <td th:text="${temp.name}"></td>
+                <td>
+
+                    <a th:href="@{/danhmuc/ShowFormUpdateDanhMuc(danhmucid=${temp.id})}"
+                       class="btn btn-info btn-sm">Update</a>
+
+                    <a class="btn btn-danger btn-sm"
+                       th:href="@{/danhmuc/delete(danhmucid=${temp.id})}"
+                       onclick="if(!(confirm('ban co muon xoa khong'))) return false;">Delete</a>
+                </td>
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
